@@ -3,40 +3,41 @@
     <head>
         <title>E3 - Plantsisstant</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <link rel="preload" href="class-images/dandelion.jpg" as="image" />
-        <link rel="preload" href="class-images/dogwood.jpg" as="image" />
-        <link rel="preload" href="class-images/hydrangea.jpg" as="image" />
-        <link rel="preload" href="class-images/ivy.jpg" as="image" />
-        <link rel="preload" href="class-images/nandina.jpg" as="image" />
-        <link rel="preload" href="class-images/swordfern.jpg" as="image" />
-        <link rel="preload" href="class-images/thistle.jpg" as="image" />
+        <link rel="preload" href="class-images/empty.gif" as="image" />
         <style type="text/css">
             .infobox {
                 display: none;
             }
         </style>
     </head>
-    <body>
+    <body class="loading">
 
-        <div class="identification-section">
-            <div class="scan">
-                <button onclick="addPhoto()">Scan Photo</button>
-                <canvas id="receiveImage"></canvas>
+        <div id="loading-indicator">
+            <span class="bubble-label">Loading...</span>
+        </div>
+
+        <div id="application">
+            <div class="identification-section">
+                <div class="scan">
+                    <div><button onclick="addPhoto()">Scan Photo</button></div>
+                    <canvas id="receiveImage"></canvas>
+                </div>
+                <div class="confirm">
+                    <div><span class="bubble-label">Is this your plant?</span></div>
+                    <img id="most-likely-image" src="class-images/empty.gif">
+                </div>
             </div>
-            <div class="confirm">
-                <span class="bubble-label">Is this your plant?</span>
-                <img id="most-likely-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+    
+            <div class="instruction-section">
+                <div id="most-likely-probability-wrapper">
+                    <span class="bubble-label" id="most-likely-probability"></span>
+                </div>
+
+                <span class="bubble-label">How to Care/Prune:</span>
+                <div id="infotext"></div>
             </div>
         </div>
-
-        <div id="most-likely-probability-wrapper">
-            <span id="most-likely-probability"></span>
-        </div>
-
-        <div class="instruction-section">
-            <span class="bubble-label">How to Care/Prune:</span>
-            <div id="infotext"></div>
-        </div>
+        
         <input type="file" id="imageInput" accept="image/*" />
 
         <div id="data-hydrangea" class="infobox">

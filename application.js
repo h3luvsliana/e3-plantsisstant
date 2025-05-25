@@ -5,7 +5,6 @@
 const URL = "https://teachablemachine.withgoogle.com/models/j2pZ9CNMf/";
 
 let model, maxPredictions, likelyInstructions;
-let predictWait = 2000;
 let likelyImageNode;
 let likelyProbabilityNode;
 let imageInput;
@@ -15,7 +14,6 @@ let weedClasses = ['dandelion', 'thistle', 'shot-weed'];
 let initialized = false;
 
 async function addPhoto() {
-    await initialize();
     imageInput.click();
 }
 
@@ -25,12 +23,17 @@ async function initialize() {
     }
     inputCanvas = document.getElementById('receiveImage');
     imageInput = document.getElementById('imageInput');
+    inputCanvas.width = 300;
+    inputCanvas.height = 300;
     drawingContext = inputCanvas.getContext('2d');
+    drawingContext.fillStyle = '#4e7454';
+    drawingContext.fillRect(0, 0, 300, 300);
     imageInput.addEventListener('change', (event) => {
         const file = event.target.files[0];
         if (!file) return;
   
         const reader = new FileReader();
+        document.body.className = "loading";
         reader.onload = (e) => {
           const img = new Image();
           img.onload = () => {
@@ -41,6 +44,7 @@ async function initialize() {
             // Draw the image on the canvas
             drawingContext.drawImage(img, 0, 0);
             predict();
+            document.body.className = '';
           };
           img.src = e.target.result;
         };
@@ -60,6 +64,7 @@ async function initialize() {
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
     initialized = true;
+    document.body.className = '';
 }
 
 function sort_probability(a,b) {
@@ -79,11 +84,6 @@ async function predict() {
     } else {
         likelyInstructions.innerHTML = document.getElementById('data-' + predictSlug).innerHTML;
     }
-    
-    /*for (let i = 0; i < maxPredictions; i++) {
-        const classPrediction =
-            prediction[i].className + ": " + prediction[i].probability.toFixed(2);
-        labelContainer.childNodes[i].innerHTML = classPrediction;
-
-    }*/
 }
+
+document.addEventListener("DOMContentLoaded", initialize);
