@@ -74,7 +74,7 @@ async function predict() {
     let predictSlug = prediction[0].className.toLowerCase().replace(/\s/g, '-');
     likelyImageNode.src = "class-images/" + predictSlug + '.jpg';
     likelyProbabilityNode.innerHTML = prediction[0].className + ' ' + (prediction[0].probability * 100).toFixed(1) + '%';
-    if (weedClasses.indexOf(prediction[0].className) > -1) {
+    if (weedClasses.indexOf(predictSlug) > -1) {
         likelyInstructions.innerHTML = '<strong class="weed">WEED</strong>';
     } else {
         likelyInstructions.innerHTML = document.getElementById('data-' + predictSlug).innerHTML;
