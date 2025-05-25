@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>E3 - Plantsisstant</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="preload" href="class-images/dandelion.jpg" as="image" />
+        <link rel="preload" href="class-images/dogwood.jpg" as="image" />
+        <link rel="preload" href="class-images/hydrangea.jpg" as="image" />
+        <link rel="preload" href="class-images/ivy.jpg" as="image" />
+        <link rel="preload" href="class-images/nandina.jpg" as="image" />
+        <link rel="preload" href="class-images/swordfern.jpg" as="image" />
+        <link rel="preload" href="class-images/thistle.jpg" as="image" />
+        <style type="text/css">
+            .infobox {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+
+        <div>Teachable Machine Image Model</div>
+        <button type="button" onclick="init()">Start</button>
+        <div id="webcam-container"></div>
+        <div id="label-container"></div>
+        <div id="most-likely-probability">
+
+        </div>
+        <div id="most-likely">
+            <img id="most-likely-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+        </div>
+
+<!-- 
+
+<strong>BOLD</strong> <em>Italic</em>
+
+Ordered list:
+<ol>
+    <li>Item 1</li>
+    <li>Item 2</li>
+</ol>
+
+Unordered list:
+<ul>
+    <li>Item 1</li>
+    <li>Item 2</li>
+</ul>
+
+<p>Paragraph 1</p>
+<p>Paragraph 2</p>
+
+-->
+
+
+        <div id="data-hydrangea" class="infobox">
+            If there are dead blooms from last season find the bottom of that dead stem and cut it off. That way the hydrangea can focus on growing new blooms and staying healthy. Leaving dead blooms makes them believe they still have to provide nutrients to the dead flower.
+        </div>
+
+        <div id="data-dogwood" class="infobox">
+            Cut off dead, diseased, or damaged branches. Remove dead flowers, so the dogwood can focus on sending nutrients to the living flowers/blooms.
+        </div>
+
+        <div id="data-ivy" class="infobox">
+            Ivy grows fast! Sometimes it's better to remove some patches so that new ones can grow. If it's getting too messy or overgrown just cut it back from pathways, other plants (if needed), and the Mary statue.
+        </div>
+
+        <div id="data-nandina" class="infobox">
+            Nandina looks best in it's natural shape, DO NOT cut them flat like a hedge. If the bottom is bare and they look top-heavy and compact, STOP cutting them in rounded shapes. Do not use shears or shaping toolsa as they do not help the Nandina. Selectively thin out old stems, choose 1/3 of the tallest ones and cut them down to the ground. If there are any that shoot out wildly, trim them back just a little-but always cut at the base or staggered heights, DO NOT cut across the top like a hedge.
+        </div>
+
+        <div id="data-swordfern" class="infobox">
+            There are two terms for the sword fern, fronds and fiddleheads. Fronds are the finished leaf fully grown, and fiddle heads are the babies and kind of look like the tip of a violin-curled. Cut all old fronds to the ground, cut AT THE BASE. Remove everything brown or broken. If you have cut any fronds off compost them and move them out of the way so that the fiddle heads and other fronds recieve light and nutrients. DO NOT CUT the fiddle heads, these are the new blooms, even if they may not look pleaseing NOW, they will later whent heyre fully grown.
+        </div>
+
+        <link href="application.css" rel="stylesheet" type="text/css">
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+        <script src="application.js"></script>
+    </body>
+</html>

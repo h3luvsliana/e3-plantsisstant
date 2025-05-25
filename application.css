@@ -1,0 +1,15 @@
+#most-likely-image {
+    max-width: 300px;
+    max-height: 300px;
+    width: auto;
+    height: auto;
+}
+
+#most-likely-probability {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+#most-likely {
+    height: 300px;
+}
