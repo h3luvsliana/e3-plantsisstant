@@ -1,3 +1,38 @@
+html, body {
+    height: 100%;
+    background-color: #a8c3b0;
+}
+
+#imageInput {
+    display: none;
+}
+
+#receiveImage {
+    max-width: 300px;
+    max-height: 300px;
+}
+
+button,
+span.bubble-label {
+    border: 0;
+    border-radius: 15px;
+    padding: 5px;
+    background-color: #ffe082;
+    color: #536c44;
+}
+
+.weed {
+    color: #AA0000;
+}
+
+button:active {
+    background-color: #aa8c6f;
+}
+
+button:focus {
+    outline: #b1870a 2px solid;
+}
+
 #most-likely-image {
     max-width: 300px;
     max-height: 300px;
@@ -13,3 +48,9 @@
 #most-likely {
     height: 300px;
 }
+
+/*
+#9
+
+
+*/

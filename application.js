@@ -4,18 +4,54 @@
 // the link to your model provided by Teachable Machine export panel
 const URL = "https://teachablemachine.withgoogle.com/models/j2pZ9CNMf/";
 
-let model, webcam, labelContainer, maxPredictions;
+let model, maxPredictions, likelyInstructions;
 let predictWait = 2000;
 let likelyImageNode;
 let likelyProbabilityNode;
+let imageInput;
+let inputCanvas;
+let drawingContext;
 let weedClasses = ['dandelion', 'thistle', 'shot-weed'];
+let initialized = false;
 
-// Load the image model and setup the webcam
-async function init() {
+async function addPhoto() {
+    await initialize();
+    imageInput.click();
+}
+
+async function initialize() {
+    if (initialized) {
+        return true;
+    }
+    inputCanvas = document.getElementById('receiveImage');
+    imageInput = document.getElementById('imageInput');
+    drawingContext = inputCanvas.getContext('2d');
+    imageInput.addEventListener('change', (event) => {
+        const file = event.target.files[0];
+        if (!file) return;
+  
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const img = new Image();
+          img.onload = () => {
+            // Set canvas size to match the image
+            inputCanvas.width = img.width;
+            inputCanvas.height = img.height;
+  
+            // Draw the image on the canvas
+            drawingContext.drawImage(img, 0, 0);
+            predict();
+          };
+          img.src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    });
+
     const modelURL = URL + "model.json";
     const metadataURL = URL + "metadata.json";
     likelyImageNode = document.getElementById('most-likely-image');
     likelyProbabilityNode = document.getElementById('most-likely-probability');
+    likelyInstructions = document.getElementById('infotext');
 
     // load the model and metadata
     // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
@@ -23,26 +59,7 @@ async function init() {
     // Note: the pose library adds "tmImage" object to your window (window.tmImage)
     model = await tmImage.load(modelURL, metadataURL);
     maxPredictions = model.getTotalClasses();
-
-    // Convenience function to setup a webcam
-    const flip = true; // whether to flip the webcam
-    webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
-    await webcam.setup(); // request access to the webcam
-    await webcam.play();
-    window.requestAnimationFrame(loop);
-
-    // append elements to the DOM
-    document.getElementById("webcam-container").appendChild(webcam.canvas);
-    labelContainer = document.getElementById("label-container");
-    for (let i = 0; i < maxPredictions; i++) { // and class labels
-        labelContainer.appendChild(document.createElement("div"));
-    }
-}
-
-async function loop() {
-    webcam.update(); // update the webcam frame
-    await predict();
-    setTimeout(loop, predictWait);
+    initialized = true;
 }
 
 function sort_probability(a,b) {
@@ -52,10 +69,16 @@ function sort_probability(a,b) {
 // run the webcam image through the image model
 async function predict() {
     // predict can take in an image, video or canvas html element
-    const prediction = await model.predict(webcam.canvas);
+    const prediction = await model.predict(inputCanvas);
     prediction.sort(sort_probability);
-    likelyImageNode.src = "class-images/" + prediction[0].className.toLowerCase().replace(/\s/g, '-') + '.jpg';
+    let predictSlug = prediction[0].className.toLowerCase().replace(/\s/g, '-');
+    likelyImageNode.src = "class-images/" + predictSlug + '.jpg';
     likelyProbabilityNode.innerHTML = prediction[0].className + ' ' + (prediction[0].probability * 100).toFixed(1) + '%';
+    if (weedClasses.indexOf(prediction[0].className) > -1) {
+        likelyInstructions.innerHTML = '<strong class="weed">WEED</strong>';
+    } else {
+        likelyInstructions.innerHTML = document.getElementById('data-' + predictSlug).innerHTML;
+    }
     
     /*for (let i = 0; i < maxPredictions; i++) {
         const classPrediction =
