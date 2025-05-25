@@ -18,38 +18,26 @@
     </head>
     <body>
 
-        <div>Teachable Machine Image Model</div>
-        <button type="button" onclick="init()">Start</button>
-        <div id="webcam-container"></div>
-        <div id="label-container"></div>
-        <div id="most-likely-probability">
-
+        <div class="identification-section">
+            <div class="scan">
+                <button onclick="addPhoto()">Scan Photo</button>
+                <canvas id="receiveImage"></canvas>
+            </div>
+            <div class="confirm">
+                <span class="bubble-label">Is this your plant?</span>
+                <img id="most-likely-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+            </div>
         </div>
-        <div id="most-likely">
-            <img id="most-likely-image" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7">
+
+        <div id="most-likely-probability-wrapper">
+            <span id="most-likely-probability"></span>
         </div>
 
-<!-- 
-
-<strong>BOLD</strong> <em>Italic</em>
-
-Ordered list:
-<ol>
-    <li>Item 1</li>
-    <li>Item 2</li>
-</ol>
-
-Unordered list:
-<ul>
-    <li>Item 1</li>
-    <li>Item 2</li>
-</ul>
-
-<p>Paragraph 1</p>
-<p>Paragraph 2</p>
-
--->
-
+        <div class="instruction-section">
+            <span class="bubble-label">How to Care/Prune:</span>
+            <div id="infotext"></div>
+        </div>
+        <input type="file" id="imageInput" accept="image/*" />
 
         <div id="data-hydrangea" class="infobox">
             If there are dead blooms from last season find the bottom of that dead stem and cut it off. That way the hydrangea can focus on growing new blooms and staying healthy. Leaving dead blooms makes them believe they still have to provide nutrients to the dead flower.
